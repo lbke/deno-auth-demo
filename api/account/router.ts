@@ -12,16 +12,17 @@ import {
   getUserByUsername,
 } from "./model.ts";
 import { authTokenCookie, generateJWT } from "./token-manager.ts";
+import { apiConfig } from "../core/config.ts";
+import { Ctx } from "../core/typings.ts";
 
-/*
 const setCookieInCtx = (ctx: Ctx, jwt: string) => {
   ctx.cookies.set(authTokenCookie, jwt, {
     httpOnly: true,
     domain: "localhost",
+    // localhost is using HTTP
     secure: apiConfig.ENVIRONMENT !== "development",
   });
 };
-*/
 export const accountRouter = new Router()
   .use(initUserCtx)
   .get("/user", (ctx) => {
@@ -47,14 +48,15 @@ export const accountRouter = new Router()
     }
     const jwt = await generateJWT(createdUser.id);
     ctx.response.body = {
-      user: createdUser,
+      username: createdUser.username,
+      id: createdUser.id,
+      /**
+      Pattern for server-server communication, returning the jwt explicitely
+      For browser auth, prefer a cookie
       jwt,
+      */
     };
-    // FIXME: cross-origin cookies won't work correctly, we need to better setup CORS
-    // and credential headers
-    // also login automatically after signup
-    //const jwt = await generateJWT(createdUser.id);
-    //setCookieInCtx(ctx, jwt);
+    setCookieInCtx(ctx, jwt);
   })
   .post("/login", checkIsVisitor, async (ctx) => {
     const body = await ctx.request.body({ type: "json" }).value;
@@ -72,8 +74,16 @@ export const accountRouter = new Router()
       const jwt = await generateJWT(user.id);
       // FIXME: it's better to rely on cookies, but CORS need a more complex setup
       // we expect the user to get the token from sessionStorage
-      ctx.response.body = { user, jwt };
-      // setCookieInCtx(ctx, jwt);
+      ctx.response.body = {
+        username: user.username,
+        id: user.id,
+        /**
+      Pattern for server-server communication, returning the jwt explicitely
+      For browser auth, prefer a cookie
+      jwt,
+      */
+      };
+      setCookieInCtx(ctx, jwt);
     }
   })
   .post("/logout", checkIsAuth, (ctx) => {

@@ -21,16 +21,32 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
    -->
 
+    <!--
+        https://htmx.org/posts/2021-5-25-htmx-1.4.0-is-released/
+
+        All libraries have to rely on either XHR or fetch to send requests.
+        HTMLX uses XHR.
+        For Set-Cookies to work, you need to properly set the "withCredentials" option, which is then
+        passed to XHR withCredentials
+
+        https://developer.mozilla.org/fr/docs/Web/API/XMLHttpRequest/withCredentials
+
+        FIXME: it doesn't seem to work properly yet
+        Maybe due to CORS headers? https://stackoverflow.com/a/48231372/5513532
+    -->
+    <meta name="htmx-config" content='{"withCredentials": false}'>
     <script src="https://unpkg.com/htmx.org@1.8.0"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+
+
 
 
 </head>
 
 <body>
     <button onclick="window.location.reload()">Refresh</button>
+    <p>This is a basic implementation with HTMX, adapt to your own needs to implement your auth frontend.</p>
     <!-- your content here... -->
-    <p>TODO: implement basic signup, login, logout, and current user display.</p>
     <div>
 
         <h2>You</h3>
@@ -44,16 +60,16 @@
     <div>
         <h3>Signup</h3>
         <form hx-post="http://localhost:8000/account/signup" hx-trigger="submit" hx-ext='json-enc'>
-            <input type="text" name="username" id="username" />
-            <input type="password" name="password" id="id" />
+            <input type="text" name="username" id="signup-username" placeholder="username" />
+            <input type="password" name="password" id="signup-id" placeholder="password" />
             <button type="submit">Signup</button>
         </form>
     </div>
     <div>
         <h2>Login</h2>
         <form hx-post="http://localhost:8000/account/login" hx-trigger="submit" hx-ext='json-enc'>
-            <input type="text" name="username" id="username" />
-            <input type="password" name="password" id="id" />
+            <input type="text" name="username" id="signup-username" placeholder="username" />
+            <input type="password" name="password" id="signup-password" placeholder="signup" />
             <button type="submit">Login</button>
         </form>
 
