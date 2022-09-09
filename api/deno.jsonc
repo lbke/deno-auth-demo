@@ -1,0 +1,9 @@
+{
+    // @see https://code.visualstudio.com/docs/languages/json#_mapping-in-the-json
+    // VS code intellisense will complete the JSON file
+    "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+    // @see https://github.com/WICG/import-maps
+    // @see https://deno.land/manual@v1.25.0/linking_to_external_code/import_maps
+    // Import maps are an alternative to TS path aliases
+    "importMap": "import_map.json"
+}

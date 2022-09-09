@@ -1,0 +1,4 @@
+node_modules/
+.mongo/
+key.txt
+package-lock.json
