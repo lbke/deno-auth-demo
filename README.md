@@ -16,5 +16,5 @@ npm run db
 # Run the Deno API + HTTP server for the web app in a single terminal
 npm run start
 # Open the web app
-xargs http://localhost:8080
+xdg-open http://localhost:8080
 ```

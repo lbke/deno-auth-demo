@@ -16,10 +16,14 @@
     <meta property="og:description" content="A simple HTML5 Template for new projects.">
     <meta property="og:image" content="image.png">
 
-   <!--
+    <!--
     <link rel="icon" href="/favicon.ico">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
    -->
+
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+
 
 </head>
 
@@ -27,6 +31,35 @@
     <button onclick="window.location.reload()">Refresh</button>
     <!-- your content here... -->
     <p>TODO: implement basic signup, login, logout, and current user display.</p>
+    <div>
+
+        <h2>You</h3>
+            <div id="user-target"></div>
+            <button hx-get="http://localhost:8000/account/user" hx-trigger="click" hx-target="#user-target"
+                hx-ext="json-enc">
+                Load current user
+            </button>
+    </div>
+    <hr />
+    <div>
+        <h3>Signup</h3>
+        <form hx-post="http://localhost:8000/account/signup" hx-trigger="submit" hx-ext='json-enc'>
+            <input type="text" name="username" id="username" />
+            <input type="password" name="password" id="id" />
+            <button type="submit">Signup</button>
+        </form>
+    </div>
+    <div>
+        <h2>Login</h2>
+        <form hx-post="http://localhost:8000/account/login" hx-trigger="submit" hx-ext='json-enc'>
+            <input type="text" name="username" id="username" />
+            <input type="password" name="password" id="id" />
+            <button type="submit">Login</button>
+        </form>
+
+    </div>
+    <button hx-post="http://localhost:8000/account/logout" hx-trigger="click" type="button"
+        hx-ext="json-enc">Logout</button>
 </body>
 
 </html>

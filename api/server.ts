@@ -10,7 +10,8 @@ const app = new Application();
 
 // NOTE: this means that the API is open to any route
 // it should be restricted before releasing to production
-app.use(oakCors({ origin: ["*", "http://localhost:5173"] }));
+// TODO: why "*" is not working?
+app.use(oakCors({ origin: ["*", "http://localhost:8080"] }));
 
 app.use(
   new Router()
