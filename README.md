@@ -18,3 +18,8 @@ npm run start
 # Open the web app
 xdg-open http://localhost:8080
 ```
+
+## TODO
+
+- [ ] When there is an error, it also fails the CORS request, leading to opaque messages.
+- [ ] Add a Deno server for the web app instead of http-server, in order to demo authenticating a private "/user" page

@@ -1,4 +1,6 @@
 # @see https://github.com/casey/just
+start:
+    npm run start
 api:
     cd {{justfile_directory()}}/api; deno run --allow-net --allow-env --allow-read ./server.ts
 

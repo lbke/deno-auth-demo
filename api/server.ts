@@ -11,7 +11,18 @@ const app = new Application();
 // NOTE: this means that the API is open to any route
 // it should be restricted before releasing to production
 // TODO: why "*" is not working?
-app.use(oakCors({ origin: ["*", "http://localhost:8080"] }));
+app.use(
+  oakCors({
+    // Can also accept Regex
+    // NOTE: this WON'T accept 127.0.0.1, only "localhost"
+    // NOTE: this will block server-server request as well
+    // (use a custom function to support having no origin)
+    origin: "http://localhost:8080",
+    // Will add "Access-Control-Allow-Credentials: true"
+    // Mandatory for Set-Cookie to work with fetch credentials/XHR withCredentials options
+    credentials: true,
+  })
+);
 
 app.use(
   new Router()
