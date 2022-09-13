@@ -1,23 +1,17 @@
 import { oak } from "/deps.ts";
-const { Application, Router } = oak;
+const { Application, Router, send } = oak;
 
 const app = new Application();
 
 const router = new Router();
 router.get("/", async (ctx) => {
-  await ctx.send({
-    root: `${Deno.cwd()}/`,
-    index: "index.html",
-  });
+  await send(ctx, "index.html");
 });
 router.get("/needs-token", async (ctx) => {
   // just a dumb check to show how we can read cookies
   // share the logic with API if you want to actually call the database
   if (await ctx.cookies.get("AUTH_TOKEN")) {
-    await ctx.send({
-      root: `${Deno.cwd()}/`,
-      index: "needs-token.html",
-    });
+    await send(ctx, "needs-token.html");
   } else {
     ctx.throw(401, "No token found in cookies");
   }
