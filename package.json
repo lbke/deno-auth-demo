@@ -2,11 +2,10 @@
   "scripts": {
     "start": "concurrently --names=api,webapp --prefix-colors=bgMagenta,bgBlue 'npm run api' 'npm run webapp'",
     "api": "cd ./api && deno run --watch --allow-net --allow-env --allow-read ./server.ts",
-    "webapp": "cd ./webapp && http-server",
+    "webapp": "cd ./webapp && deno run --watch --allow-net --allow-env --allow-read ./server.ts",
     "db": "docker run --rm -p 27017:27017 -v \"$(pwd)\"/.mongo:/data/db --label deno-auth-demo mongo:4.0.4"
   },
   "devDependencies": {
-    "concurrently": "^7.4.0",
-    "http-server": "^14.1.1"
+    "concurrently": "^7.4.0"
   }
 }

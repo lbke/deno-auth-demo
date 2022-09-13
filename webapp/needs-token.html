@@ -45,7 +45,7 @@
 
 <body>
     <button onclick="window.location.reload()">Refresh</button>
-    <a href="/needs-token">Access protected route</a>
+    <a href="/">Back to home</a>
     <p>This is a basic implementation with HTMX, adapt to your own needs to implement your auth frontend.</p>
     <!-- your content here... -->
     <div>
@@ -58,23 +58,6 @@
             </button>
     </div>
     <hr />
-    <div>
-        <h3>Signup</h3>
-        <form hx-post="http://localhost:8000/account/signup" hx-trigger="submit" hx-ext='json-enc'>
-            <input type="text" name="username" id="signup-username" placeholder="username" />
-            <input type="password" name="password" id="signup-id" placeholder="password" />
-            <button type="submit">Signup</button>
-        </form>
-    </div>
-    <div>
-        <h2>Login</h2>
-        <form hx-post="http://localhost:8000/account/login" hx-trigger="submit" hx-ext='json-enc'>
-            <input type="text" name="username" id="signup-username" placeholder="username" />
-            <input type="password" name="password" id="signup-password" placeholder="signup" />
-            <button type="submit">Login</button>
-        </form>
-
-    </div>
     <button hx-post="http://localhost:8000/account/logout" hx-trigger="click" type="button"
         hx-ext="json-enc">Logout</button>
 </body>
